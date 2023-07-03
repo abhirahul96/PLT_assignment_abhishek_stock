@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stock Check</title>
+</head>
+<body>
+  <h1>Stock Check</h1>
+  <form id="stockForm">
+    <label for="skuInput">Enter SKU:</label>
+    <input type="text" id="skuInput" required>
+    <button type="submit">Check Stock</button>
+  </form>
+
+  <div id="stockResult"></div> <!-- Add a container for displaying the stock result -->
+
+  <script>
+    // Function to handle form submission
+    function handleFormSubmit(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      const skuInput = document.getElementById('skuInput');
+      const sku = skuInput.value.trim(); // Get the SKU value from the input box and remove leading/trailing spaces
+
+      // Make the API call to get stock level
+      fetch(`/api/v1/stock/getPrice?sku=${encodeURIComponent(sku)}`)
+        .then(response => response.json())
+        .then(data => {
+          // Handle the API response
+          console.log('Stock Level:', data);
+
+          // Create a new paragraph element to display the stock level information
+          const stockResult = document.getElementById('stockResult');
+          const stockLevel = document.createElement('p');
+          stockLevel.textContent = `Stock Level: ${data.qty} Sku: ${data.sku}`; // Assuming the API response contains a "qty" property
+
+          // Append the new stock level information to the existing result container
+          stockResult.appendChild(stockLevel);
+
+          // Clear the input box
+          skuInput.value = '';
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          // TODO: Handle the error and display an error message to the user
+        });
+    }
+
+    // Add event listener to the form submit event
+    const stockForm = document.getElementById('stockForm');
+    stockForm.addEventListener('submit', handleFormSubmit);
+  </script>
+</body>
+</html>
