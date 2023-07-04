@@ -17,9 +17,9 @@ $  npm  run  start:prod
 ## Steps
 
  1. Install all dependencies using the installation command.
- 2. Start the server using any one of the above script from Running the app.
- 3. Hit the localhost:3000 server in browser to load the UI.
- 4. Enter the stock name, it'll return current stock quantity.
+ 2. Start the server using any one of the above scripts from "Running the app".
+ 3. Open localhost:3000 in a browser to load the UI.
+ 4. Enter the stock name, and it will return the current stock quantity.
 
 ## Testing
 
